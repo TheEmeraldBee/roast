@@ -1,0 +1,18 @@
+
+# The IP Address in which the server will be hosted.
+address = "127.0.0.1"
+port = 7878
+
+# Admin User
+# CHANGE THESE!
+admin_user = "Admin"
+admin_pass = "pass"
+
+# Basic User
+# CHANGE THESE!
+main_user = "User"
+main_pass = "pass"
+
+# File that runs your server
+run_path = "./run.sh"
+            
