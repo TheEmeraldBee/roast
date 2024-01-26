@@ -1,9 +1,14 @@
 [package]
-name = "roast"
-version = "0.1.0"
+name = "roast-bin"
+version = "0.0.0"
 edition = "2021"
+license = "MIT OR Apache-2.0"
+description = "Web based server handler for ANY runnable file!"
+repository = "https://github.com/TheEmeraldBee/roast"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[[bin]]
+name = "roast"
+path = "src/main.rs"
 
 [dependencies]
 anyhow = "1.0.79"
