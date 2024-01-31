@@ -112,11 +112,7 @@ impl ServerCommand {
     }
 
     pub fn send_kill(&mut self) {
-        nix::sys::signal::kill(
-            nix::unistd::Pid::from_raw(self.command.id() as i32),
-            nix::sys::signal::Signal::SIGINT,
-        )
-        .expect("cannot send ctrl-c");
+        self.command.kill().expect("Cannot kill process");
     }
 
     pub fn check_complete(&mut self) -> Option<ExitStatus> {

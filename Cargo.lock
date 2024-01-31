@@ -1234,7 +1234,6 @@ dependencies = [
  "crossbeam",
  "ctrlc",
  "lazy_static",
- "nix",
  "rand",
  "rcgen",
  "rocket",
