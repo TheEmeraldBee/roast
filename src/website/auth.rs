@@ -1,27 +1,29 @@
 use rocket::{
     form::Form,
     http::CookieJar,
-    response::{status::Unauthorized, Redirect},
+    response::{content::RawHtml, status::Unauthorized, Redirect},
     uri, *,
 };
 
 use crate::{
     auth::{apply_logout, Auth, Login},
-    CONFIG,
+    html_template, CONFIG,
 };
 
 #[post("/", data = "<form>")]
-pub fn login(form: Form<Login>, cookies: &CookieJar<'_>) -> Redirect {
+pub fn login(form: Form<Login>, cookies: &CookieJar<'_>) -> Result<Redirect, RawHtml<String>> {
     if form.username == CONFIG.admin_user && form.password == CONFIG.admin_pass {
         let auth_cookie = Auth::login_admin();
         cookies.add_private(("authentication", auth_cookie.0.to_string()));
-        Redirect::to(uri!("/log"))
+        Ok(Redirect::to(uri!("/log")))
     } else if form.username == CONFIG.main_user && form.password == CONFIG.main_pass {
         let auth_cookie = Auth::login_user();
         cookies.add_private(("authentication", auth_cookie.0.to_string()));
-        Redirect::to(uri!("/user"))
+        Ok(Redirect::to(uri!("/user")))
     } else {
-        Redirect::to(uri!("/"))
+        Err(
+            html_template!("../../dist/index.html" => ["{{ login }}" => "Username or password is incorrect"]),
+        )
     }
 }
 

@@ -4,20 +4,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cool Page</title>
+  <title>{{ user }}</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      background-color: #333;
+      /* Dark background color */
       margin: 0;
       display: flex;
       align-items: center;
       justify-content: center;
       height: 100vh;
+      color: #fff;
+      /* Light text color */
     }
 
+
     .cool-page {
-      background-color: #fff;
+      background-color: #454444;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
       padding: 40px;
@@ -51,10 +55,12 @@
 
 <body>
   <div class="cool-page">
-    <h2>Welcome User!</h2>
+    <h2>Welcome {{ user }}!</h2>
+    <p>{{ status }}</p>
     <div class="button-container">
       <a class="cool-link" href="/logout"><button class="cool-button">Logout</button></a>
       <a class="cool-link" href="/action/boot"><button class="cool-button">Start Server</button></a>
+      {{ extra }}
     </div>
   </div>
 </body>

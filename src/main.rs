@@ -24,6 +24,20 @@ use rocket::{main, routes};
 
 use website::*;
 
+#[macro_export]
+macro_rules! html_template {
+    ($filepath:expr => [$($val:expr => $replace:expr),*]) => {{
+        #[allow(unused_mut)]
+        let mut value = include_str!($filepath).to_string();
+
+        $(
+            value = value.replace($val, $replace);
+        )*
+
+        RawHtml(value)
+    }};
+}
+
 lazy_static! {
     static ref CONFIG: Config = {
         let file = std::fs::read_to_string("./roast-options.toml")
@@ -76,27 +90,13 @@ async fn main() {
             .expect("key.pem failed to write");
 
         println!("Cert Files Generated. Run 'roast' to run your server!");
+        return;
     }
 
     if commands.gen_config {
         std::fs::write(
             "./roast-options.toml",
-            "# The IP Address in which the server will be hosted.
-address = \"127.0.0.1\"
-port = 7878
-
-# Admin User
-# CHANGE THESE!
-admin_user = \"Admin\"
-admin_pass = \"pass\"
-
-# Basic User
-# CHANGE THESE!
-main_user = \"User\"
-main_pass = \"pass\"
-
-# File that runs your server
-run_path = \"./run.sh\"",
+            include_str!("../roast-options.toml"),
         )
         .expect("File should be able to write");
 
@@ -105,7 +105,7 @@ run_path = \"./run.sh\"",
     }
 
     if !Path::new("./cert.pem").exists() || !Path::new("./key.pem").exists() {
-        panic!("Please run command with --gen_tls to generate the cert files required.");
+        println!("Please run command with --gen_tls to generate the cert files required.");
     }
 
     ctrlc::set_handler(|| {

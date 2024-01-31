@@ -4,20 +4,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login Page</title>
+  <title>Login</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      background-color: #737272;
       margin: 0;
       display: flex;
       align-items: center;
       justify-content: center;
       height: 100vh;
+      color: #fff;
     }
 
     .login-container {
-      background-color: #fff;
+      background-color: #333;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       padding: 20px;
       border-radius: 8px;
@@ -27,7 +28,7 @@
 
     .login-container h2 {
       margin-bottom: 20px;
-      color: #333;
+      color: #fff;
     }
 
     .login-form {
@@ -71,6 +72,7 @@
 <body>
   <div class="login-container">
     <h2>Login</h2>
+    <p>{{ login }}</p>
     <form class="login-form" method="post">
       <div class="form-group">
         <label for="username">Username:</label>

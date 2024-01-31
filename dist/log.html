@@ -4,19 +4,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chat Window</title>
+  <title>Console</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      background-color: #333;
+      /* Dark background color */
       margin: 0;
       display: flex;
       flex-direction: column;
       height: 100vh;
+      color: #fff;
+      /* Light text color */
     }
 
     .chat-window {
-      background-color: #fff;
+      background-color: #444;
+      /* Slightly lighter background for chat window */
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
       flex-grow: 1;
@@ -31,26 +35,38 @@
       margin: 12px;
       margin-bottom: 0px;
       flex-grow: 1;
-      background-color: #d1cfcf;
+      background-color: #555;
+      /* Slightly lighter background for text area */
       white-space: pre-line;
     }
 
     .input-bar {
       padding: 10px;
-      background-color: #fff;
+      background-color: #444;
+      /* Slightly lighter background for input bar */
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-top: 1px solid #ccc;
+      border-top: 1px solid #666;
+      /* Lighter border color */
     }
 
     .input-bar input {
       flex-grow: 1;
       padding: 8px;
       box-sizing: border-box;
-      border: 1px solid #ccc;
+      border: 1px solid #666;
+      /* Lighter border color */
       border-radius: 4px;
       margin-right: 10px;
+      background-color: #333;
+      /* Dark background color */
+      color: #fff;
+      /* Light text color */
+    }
+
+    button {
+      margin: 8px;
     }
 
     .send-btn {
@@ -62,14 +78,27 @@
       cursor: pointer;
     }
 
+    nav button {
+      float: right;
+    }
+
     .send-btn:hover {
       background-color: #45a049;
+    }
+
+    a {
+      color: #fff;
+      text-decoration: none;
     }
   </style>
 </head>
 
 <body>
-  <a href="/logout">Logout</a>
+  <nav>
+    <a href="user"><button class="send-btn">User View</button></a>
+    <a href="logout"><button class="send-btn">Logout</button></a>
+  </nav>
+
   <div class="chat-window">
     <div class="text-scroll-area" id="messageArea">
       <!-- Content will be dynamically added here using JavaScript -->

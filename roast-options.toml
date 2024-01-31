@@ -15,4 +15,3 @@ main_pass = "pass"
 
 # File that runs your server
 run_path = "./run.sh"
-            

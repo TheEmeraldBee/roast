@@ -15,14 +15,30 @@ use rocket::{
     uri, *,
 };
 
-use crate::auth::{logged_in, PermissionType};
+use crate::{
+    auth::{logged_in, PermissionType},
+    html_template, COMMAND,
+};
 
 #[get("/user")]
 pub async fn user(cookies: &CookieJar<'_>) -> Result<RawHtml<String>, Redirect> {
     if logged_in(cookies).is_none() {
         Err(Redirect::to(uri!("/")))
     } else {
-        Ok(RawHtml(include_str!("../../dist/user.html").to_string()))
+        let login = logged_in(cookies).expect("User should be Some");
+        Ok(
+            html_template!("../../dist/user.html" => ["{{ status }}" => match COMMAND.read().unwrap().running {
+                true => "Server Status: Running",
+                false => "Server Status: Stopped"
+            }, "{{ user }}" => match login {
+                PermissionType::Admin => "Admin",
+                PermissionType::User => "User",
+            }, "{{ extra }}" => match login {
+                    PermissionType::Admin => "<a class=\"cool-link\" href=\"/log\"><button class=\"cool-button\">Console</button></a>",
+                    PermissionType::User => ""
+                }
+            ]),
+        )
     }
 }
 
@@ -33,7 +49,7 @@ pub async fn index(cookies: &CookieJar<'_>) -> Result<Redirect, RawHtml<String>>
             PermissionType::Admin => Ok(Redirect::to(uri!("/log"))),
             PermissionType::User => Ok(Redirect::to(uri!("/user"))),
         },
-        None => Err(RawHtml(include_str!("../../dist/index.html").to_string())),
+        None => Err(html_template!("../../dist/index.html" => ["{{ login }}" => "Welcome!"])),
     }
 }
 
@@ -43,5 +59,6 @@ pub async fn log(cookies: &CookieJar<'_>) -> Result<RawHtml<String>, Redirect> {
         return Err(Redirect::to(uri!("/")));
     }
 
-    Ok(RawHtml(include_str!("../../dist/log.html").to_string()))
+    // Ok(RawHtml(include_str!("../../dist/log.html").to_string()));
+    Ok(html_template!("../../dist/log.html" => []))
 }
