@@ -22,8 +22,6 @@ use rcgen::generate_simple_self_signed;
 use rocket::config::{SecretKey, TlsConfig};
 use rocket::{main, routes};
 
-use command_macros::cmd;
-
 use website::*;
 
 #[macro_export]
@@ -52,7 +50,8 @@ lazy_static! {
 lazy_static! {
     static ref COMMAND: RwLock<ServerCommand> = {
         let command = ServerCommand::new(
-            cmd!(sh(CONFIG.run_path))
+            Command::new("sh")
+                .arg(CONFIG.run_path.clone())
                 .stdin(Stdio::piped())
                 .stdout(Stdio::piped())
                 .spawn()
