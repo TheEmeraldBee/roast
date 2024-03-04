@@ -14,4 +14,4 @@ main_user = "User"
 main_pass = "pass"
 
 # File that runs your server
-run_path = "./run.sh"
+run_path = "echo \"Hello World\""

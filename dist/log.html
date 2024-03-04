@@ -9,18 +9,15 @@
     body {
       font-family: Arial, sans-serif;
       background-color: #333;
-      /* Dark background color */
       margin: 0;
       display: flex;
       flex-direction: column;
       height: 100vh;
       color: #fff;
-      /* Light text color */
     }
 
     .chat-window {
       background-color: #444;
-      /* Slightly lighter background for chat window */
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
       flex-grow: 1;
@@ -36,19 +33,16 @@
       margin-bottom: 0px;
       flex-grow: 1;
       background-color: #555;
-      /* Slightly lighter background for text area */
       white-space: pre-line;
     }
 
     .input-bar {
       padding: 10px;
       background-color: #444;
-      /* Slightly lighter background for input bar */
       display: flex;
       align-items: center;
       justify-content: space-between;
       border-top: 1px solid #666;
-      /* Lighter border color */
     }
 
     .input-bar input {
@@ -56,13 +50,10 @@
       padding: 8px;
       box-sizing: border-box;
       border: 1px solid #666;
-      /* Lighter border color */
       border-radius: 4px;
       margin-right: 10px;
       background-color: #333;
-      /* Dark background color */
       color: #fff;
-      /* Light text color */
     }
 
     button {
@@ -110,7 +101,6 @@
   </div>
 
   <script>
-    // Function to fetch data from the server and update the text area
     async function fetchDataAndUpdateTextArea() {
       try {
         const response = await fetch("/data/log");
@@ -132,14 +122,12 @@
           const text = new TextDecoder().decode(value);
           messageArea.textContent += text;
 
-          // You can update the content in real-time here as more data arrives
         }
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     }
 
-    // Function to handle sending messages (you can customize this based on your needs)
     function sendMessage() {
       let data = {command: document.getElementById("messageInput").value};
 
@@ -154,7 +142,6 @@
       });
     }
 
-    // Fetch data on page load
     fetchDataAndUpdateTextArea();
   </script>
 </body>
