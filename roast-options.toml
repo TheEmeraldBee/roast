@@ -13,5 +13,10 @@ admin_pass = "pass"
 main_user = "User"
 main_pass = "pass"
 
-# File that runs your server
-run_path = "echo \"Hello World\""
+[[runnables]]
+name = "Numbers"
+path = "./run.sh"
+
+[[runnables]]
+name = "Numbers 2"
+path = "./run.sh"

@@ -1,3 +1,5 @@
+#![allow(clippy::blocks_in_conditions)]
+
 use std::{collections::HashMap, sync::Mutex};
 
 use lazy_static::lazy_static;

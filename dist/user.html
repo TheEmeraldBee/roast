@@ -59,10 +59,27 @@
     <p>{{ status }}</p>
     <div class="button-container">
       <a class="cool-link" href="/logout"><button class="cool-button">Logout</button></a>
-      <a class="cool-link" href="/action/boot"><button class="cool-button">Start Server</button></a>
+
+      <input placeholder="What server ID do you want to boot?" id="server">
+      <button class="cool-button" onclick="boot()">Start Server</button>
       {{ extra }}
     </div>
   </div>
 </body>
+
+<script>
+  function boot() {
+    let data = document.getElementById("server");
+
+    document.getElementById("server").value = ""
+
+    fetch('/action/boot/' + data, {
+      method: "GET",
+      headers: {'Content-Type': 'application/json'},
+    }).then(res => {
+      console.log("Request complete! response:", res);
+    });
+  }
+</script>
 
 </html>

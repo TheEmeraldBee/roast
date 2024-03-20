@@ -51,7 +51,7 @@ lazy_static! {
     static ref COMMAND: RwLock<ServerCommand> = {
         let command = ServerCommand::new(
             Command::new("sh")
-                .arg(CONFIG.run_path.clone())
+                .arg(CONFIG.runnables[0].path.clone())
                 .stdin(Stdio::piped())
                 .stdout(Stdio::piped())
                 .spawn()

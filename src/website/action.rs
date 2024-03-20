@@ -30,8 +30,8 @@ pub async fn command(command: Json<CommandForm>, cookies: &CookieJar<'_>) -> &'s
     "Complete"
 }
 
-#[get("/boot")]
-pub fn boot(cookies: &CookieJar<'_>) -> Redirect {
+#[get("/boot/<com>")]
+pub fn boot(cookies: &CookieJar<'_>, com: String) -> Redirect {
     if logged_in(cookies).is_none() {
         return Redirect::to(uri!("/"));
     }
@@ -41,8 +41,16 @@ pub fn boot(cookies: &CookieJar<'_>) -> Redirect {
     if command.running {
         Redirect::to(uri!("/user"))
     } else {
+        let path = match CONFIG.runnables.iter().find(|x| x.name == com) {
+            Some(s) => s,
+            None => &CONFIG.runnables[0],
+        }
+        .path
+        .clone();
+
         *command = ServerCommand::new(
-            Command::new(CONFIG.run_path.clone())
+            Command::new("sh")
+                .arg(path)
                 .stdin(Stdio::piped())
                 .stdout(Stdio::piped())
                 .spawn()
